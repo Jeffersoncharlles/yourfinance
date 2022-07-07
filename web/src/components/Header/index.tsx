@@ -1,16 +1,24 @@
+import { useState } from 'react';
 import { Logo } from '../../assets/Logo';
+
 import {
     Container,
     Content,
 } from './styles';
 
-export const Header = () => {
+interface Props {
+    onOpenModal: () => void;
+}
+
+export const Header = ({ onOpenModal }: Props) => {
 
     return (
         <Container>
             <Content>
                 <Logo />
-                <button type='button'>Nova transação</button>
+                <button type='button' onClick={onOpenModal}>Nova transação</button>
+
+
             </Content>
         </Container>
     );
