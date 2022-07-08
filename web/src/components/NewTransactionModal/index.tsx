@@ -2,6 +2,7 @@ import {
     Container,
 } from './styles';
 import Modal from 'react-modal'
+import { X } from 'phosphor-react';
 
 interface Props {
     onOpenModal: boolean;
@@ -20,6 +21,9 @@ export const NewTransactionModal = ({ onCloseModal, onOpenModal }: Props) => {
             overlayClassName="modal-overlay"
             className="modal-content"
         >
+            <button type='button' onClick={onCloseModal} className="react-modal-close">
+                <X size={20} />
+            </button>
 
             <Container>
                 <h2>Cadastrar transação</h2>

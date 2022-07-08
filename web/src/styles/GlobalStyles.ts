@@ -49,6 +49,7 @@ html {
 
 button{
     cursor: pointer;
+    border: 0;
 }
 
 [disabled]{
@@ -78,6 +79,15 @@ button{
     position: relative;
 
     border-radius: 0.24rem;
+}
+
+.react-modal-close{
+    border: 0;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    background: transparent;
+    transition: filter .2s;
 }
 
 `
