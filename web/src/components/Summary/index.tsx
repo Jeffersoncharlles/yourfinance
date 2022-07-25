@@ -22,7 +22,7 @@ export const Summary = () => {
 
             <div>
                 <header>
-                    <p>Saidas</p>
+                    <p>Saídas</p>
                     <ArrowCircleDown size={24} weight="bold" color='#E52E4D' />
                 </header>
                 <strong> - R$500,00</strong>
