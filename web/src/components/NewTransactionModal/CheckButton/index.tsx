@@ -15,7 +15,7 @@ export const CheckButton = ({ title, type, onType, isActive, activeColor }: Prop
 
 
     return (
-        <Container onClick={onType} isActive={isActive} activeColor={activeColor}>
+        <Container onClick={onType} isActive={isActive} activeColor={activeColor} type="button">
             {type === 'deposit' ?
                 (<ArrowCircleUp size={24} weight="bold" color='#33CC95' />)
                 : (<ArrowCircleDown size={24} weight="bold" color='#E52E4D' />)

@@ -1,4 +1,7 @@
 import { ArrowCircleDown, ArrowCircleUp, CurrencyCircleDollar, CurrencyDollar } from 'phosphor-react';
+import { useTransaction } from '../../context/TransactionsContext';
+import { formatAmount } from '../../utils/format';
+
 import {
     Container,
 } from './styles';
@@ -9,6 +12,30 @@ interface Props {
 }
 
 export const Summary = () => {
+    const { transactions } = useTransaction()
+
+    // const totalDeposits = transactions.reduce((accumulator, transaction) => {
+    //     if (transaction.type === 'deposit') {
+    //         return accumulator + transaction.amount
+    //     }
+    //     return accumulator
+    // }, 0)
+
+    const summary = transactions.reduce((acc, transaction) => {
+        if (transaction.type === 'deposit') {
+            acc.deposits += transaction.amount
+            acc.total += transaction.amount
+        } else {
+            acc.withdraws += transaction.amount
+            acc.total -= transaction.amount
+            //subtrair ao total
+        }
+        return acc
+    }, {
+        deposits: 0,
+        withdraws: 0,
+        total: 0
+    })
 
     return (
         <Container>
@@ -17,7 +44,7 @@ export const Summary = () => {
                     <p>Entradas</p>
                     <ArrowCircleUp size={24} weight="bold" color='#33CC95' />
                 </header>
-                <strong>R$1000,00</strong>
+                <strong>{formatAmount(summary.deposits)}</strong>
             </div>
 
             <div>
@@ -25,7 +52,7 @@ export const Summary = () => {
                     <p>Saídas</p>
                     <ArrowCircleDown size={24} weight="bold" color='#E52E4D' />
                 </header>
-                <strong> - R$500,00</strong>
+                <strong> - {formatAmount(summary.withdraws)}</strong>
             </div>
 
             <div className='highlight-background'>
@@ -33,7 +60,7 @@ export const Summary = () => {
                     <p>Total</p>
                     <CurrencyDollar size={24} weight="bold" color='#fff' />
                 </header>
-                <strong>R$2500,00</strong>
+                <strong>{formatAmount(summary.total)}</strong>
             </div>
 
         </Container>

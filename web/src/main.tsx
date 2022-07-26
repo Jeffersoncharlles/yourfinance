@@ -3,7 +3,9 @@ import { createServer, Model } from 'miragejs';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
+import { TransactionsProvider } from './context/TransactionsContext';
 import { GlobalStyle } from './styles/GlobalStyles'
+
 
 createServer({
   models: {
@@ -39,7 +41,9 @@ createServer({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GlobalStyle />
-    <App />
+    <TransactionsProvider>
+      <GlobalStyle />
+      <App />
+    </TransactionsProvider>
   </React.StrictMode>
 )

@@ -7,6 +7,7 @@ import { X } from 'phosphor-react';
 import { CheckButton } from './CheckButton';
 import { useState } from 'react';
 import { api } from '../../lib/api';
+import { useTransaction } from '../../context/TransactionsContext';
 
 interface Props {
     onOpenModal: boolean;
@@ -14,16 +15,22 @@ interface Props {
 }
 
 export const NewTransactionModal = ({ onCloseModal, onOpenModal }: Props) => {
+    const { createNewTransaction } = useTransaction()
     const [title, setTitle] = useState('')
-    const [value, setValue] = useState(0)
+    const [amount, setAmount] = useState(0)
     const [category, setCategory] = useState('')
-    const [type, setType] = useState<'deposit' | 'withdraw'>()
+    const [type, setType] = useState<'deposit' | 'withdraw'>('deposit')
 
-    const handleCreateNewTransaction = (e: React.FormEvent) => {
+    const handleCreateNewTransaction = async (e: React.FormEvent) => {
         e.preventDefault()
-        const data = { title, value, category, type }
+        await createNewTransaction({ title, type, category, amount })
 
-        api.post('/transactions', data)
+
+        setTitle('')
+        setCategory('')
+        setAmount(0)
+        setType('deposit')
+        onCloseModal()
 
     }
 
@@ -46,7 +53,7 @@ export const NewTransactionModal = ({ onCloseModal, onOpenModal }: Props) => {
 
                 <input type="text" placeholder='Titulo' value={title} onChange={e => setTitle(e.target.value)} />
 
-                <input type="number" placeholder='Valor' value={value} onChange={e => setValue(Number(e.target.value))} />
+                <input type="number" placeholder='Valor' value={amount} onChange={e => setAmount(Number(e.target.value))} />
 
                 <input type="text" placeholder='Categoria' value={category} onChange={e => setCategory(e.target.value)} />
 
